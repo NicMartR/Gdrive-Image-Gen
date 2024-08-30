@@ -32,7 +32,6 @@
         const API_KEY = 'YOUR_API_KEY';
         const SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 
-        // Load the Google API client library
         function loadClient() {
             gapi.load('client:auth2', initClient);
         }
@@ -56,6 +55,23 @@
         }
 
         function uploadFile() {
+            const authInstance = gapi.auth2.getAuthInstance();
+            
+            if (!authInstance) {
+                console.error('Authentication instance is not available.');
+                alert('Google API client not initialized properly.');
+                return;
+            }
+            
+            const user = authInstance.currentUser.get();
+            if (!user || !user.getAuthResponse().access_token) {
+                console.error('User not authenticated or access token not available.');
+                alert('User not authenticated. Please sign in.');
+                return;
+            }
+
+            const token = user.getAuthResponse().access_token;
+
             const fileInput = document.getElementById('file-input');
             const file = fileInput.files[0];
             if (!file) {
@@ -63,14 +79,6 @@
                 return;
             }
 
-            const authInstance = gapi.auth2.getAuthInstance();
-            if (!authInstance || !authInstance.currentUser.get().getAuthResponse().access_token) {
-                console.error('User not authenticated or access token not available.');
-                alert('User not authenticated. Please sign in.');
-                return;
-            }
-
-            const token = authInstance.currentUser.get().getAuthResponse().access_token;
             console.log('Selected file:', file);
 
             const metadata = {
