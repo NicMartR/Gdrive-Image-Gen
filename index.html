@@ -36,6 +36,7 @@
     <h1>Generate Direct Image Link from Google Drive</h1>
     <input type="text" id="file-id" placeholder="Enter Google Drive file ID or shared link" />
     <button onclick="generateLink()">Generate Direct Link</button>
+    <button onclick="copyToClipboard()">Copy Direct Link</button>
     <div id="output"></div>
 
     <div class="notes">
@@ -71,6 +72,19 @@
                 `;
             } else {
                 document.getElementById('output').innerHTML = '<p>Please enter a valid Google Drive file ID or shared link.</p>';
+            }
+        }
+
+        function copyToClipboard() {
+            const directLink = document.querySelector('#output a')?.href;
+            if (directLink) {
+                navigator.clipboard.writeText(directLink).then(() => {
+                    alert('Link copied to clipboard!');
+                }).catch(err => {
+                    console.error('Error copying link: ', err);
+                });
+            } else {
+                alert('No link to copy. Please generate a link first.');
             }
         }
     </script>
