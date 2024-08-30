@@ -30,6 +30,14 @@
             list-style-type: disc;
             margin-left: 20px;
         }
+        .notification {
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +45,7 @@
     <input type="text" id="file-id" placeholder="Enter Google Drive file ID or shared link" />
     <button onclick="generateLink()">Generate Direct Link</button>
     <div id="output"></div>
+    <div id="notification" class="notification" style="display: none;"></div>
 
     <div class="notes">
         <h2>Notes</h2>
@@ -70,11 +79,14 @@
                     <img src="${directLink}" alt="Image" style="max-width: 100%; margin-top: 10px;" />
                 `;
 
-                // Automatically copy the direct link to clipboard
+                // Automatically copy the direct link to clipboard and show a notification
                 navigator.clipboard.writeText(directLink).then(() => {
-                    console.log('Link copied to clipboard!');
+                    document.getElementById('notification').innerText = 'Link copied to clipboard!';
+                    document.getElementById('notification').style.display = 'block';
                 }).catch(err => {
                     console.error('Error copying link: ', err);
+                    document.getElementById('notification').innerText = 'Failed to copy link to clipboard.';
+                    document.getElementById('notification').style.display = 'block';
                 });
             } else {
                 document.getElementById('output').innerHTML = '<p>Please enter a valid Google Drive file ID or shared link.</p>';
