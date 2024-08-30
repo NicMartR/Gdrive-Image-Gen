@@ -13,21 +13,6 @@
             padding: 10px;
             font-size: 16px;
         }
-        button {<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Drive Link Generator</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        input, button {
-            padding: 10px;
-            font-size: 16px;
-        }
         button {
             cursor: pointer;
         }
@@ -106,88 +91,6 @@
                     const notification = document.getElementById('notification');
                     notification.innerText = 'Failed to copy link to clipboard.';
                     notification.style.display = 'block';
-                });
-            } else {
-                document.getElementById('output').innerHTML = '<p>Please enter a valid Google Drive file ID or shared link.</p>';
-            }
-        }
-    </script>
-</body>
-</html>
-
-            cursor: pointer;
-        }
-        #output {
-            margin-top: 20px;
-        }
-        .notes {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .notes ul {
-            list-style-type: disc;
-            margin-left: 20px;
-        }
-        .notification {
-            margin-top: 10px;
-            padding: 10px;
-            border: 1px solid #4CAF50;
-            border-radius: 5px;
-            background-color: #dff0d8;
-            color: #3c763d;
-        }
-    </style>
-</head>
-<body>
-    <h1>Generate Direct Image Link from Google Drive</h1>
-    <input type="text" id="file-id" placeholder="Enter Google Drive file ID or shared link" />
-    <button onclick="generateLink()">Generate Direct Link</button>
-    <div id="output"></div>
-    <div id="notification" class="notification" style="display: none;"></div>
-
-    <div class="notes">
-        <h2>Notes</h2>
-        <ul>
-            <li>Make sure the image is shared as "General access: Revolut Ltd." with Viewer permission</li>
-            <li>Use the link from <strong>Share > Copy link</strong></li>
-            <li>This will only work with standard image formats (PNG, JPG, etc.)</li>
-        </ul>
-    </div>
-
-    <script>
-        function generateLink() {
-            const input = document.getElementById('file-id').value.trim();
-            let fileId;
-
-            // Extract file ID from the shared link if necessary
-            const urlRegex = /https:\/\/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)\//;
-            const match = input.match(urlRegex);
-
-            if (match) {
-                fileId = match[1];
-            } else {
-                fileId = input;
-            }
-
-            if (fileId) {
-                const directLink = `https://lh3.googleusercontent.com/d/${fileId}`;
-                document.getElementById('output').innerHTML = `
-                    <p><strong>Direct Image Link:</strong></p>
-                    <a href="${directLink}" target="_blank">${directLink}</a>
-                    <img src="${directLink}" alt="Image" style="max-width: 100%; margin-top: 10px;" />
-                `;
-
-                // Automatically copy the direct link to clipboard and show a notification
-                navigator.clipboard.writeText(directLink).then(() => {
-                    document.getElementById('notification').innerText = 'Link copied to clipboard!';
-                    document.getElementById('notification').style.display = 'block';
-                }).catch(err => {
-                    console.error('Error copying link: ', err);
-                    document.getElementById('notification').innerText = 'Failed to copy link to clipboard.';
-                    document.getElementById('notification').style.display = 'block';
                 });
             } else {
                 document.getElementById('output').innerHTML = '<p>Please enter a valid Google Drive file ID or shared link.</p>';
