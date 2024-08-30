@@ -19,6 +19,17 @@
         #output {
             margin-top: 20px;
         }
+        .notes {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .notes ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
     </style>
 </head>
 <body>
@@ -26,6 +37,15 @@
     <input type="text" id="file-id" placeholder="Enter Google Drive file ID or shared link" />
     <button onclick="generateLink()">Generate Direct Link</button>
     <div id="output"></div>
+
+    <div class="notes">
+        <h2>Notes</h2>
+        <ul>
+            <li>Make sure the image is shared as "General access: Anyone with the link."</li>
+            <li>Use the link from <strong>Share > Copy link</strong></li>
+            <li>This will only work with standard image formats (PNG, JPG, etc.)</li>
+        </ul>
+    </div>
 
     <script>
         function generateLink() {
