@@ -36,13 +36,12 @@
     <h1>Generate Direct Image Link from Google Drive</h1>
     <input type="text" id="file-id" placeholder="Enter Google Drive file ID or shared link" />
     <button onclick="generateLink()">Generate Direct Link</button>
-    <button onclick="copyToClipboard()">Copy Direct Link</button>
     <div id="output"></div>
 
     <div class="notes">
         <h2>Notes</h2>
         <ul>
-            <li>Make sure the image is shared as "General access: Revolut Ltd." with Viewer permission</li>
+            <li>Make sure the image is shared as "General access: Anyone with the link."</li>
             <li>Use the link from <strong>Share > Copy link</strong></li>
             <li>This will only work with standard image formats (PNG, JPG, etc.)</li>
         </ul>
@@ -70,21 +69,15 @@
                     <a href="${directLink}" target="_blank">${directLink}</a>
                     <img src="${directLink}" alt="Image" style="max-width: 100%; margin-top: 10px;" />
                 `;
-            } else {
-                document.getElementById('output').innerHTML = '<p>Please enter a valid Google Drive file ID or shared link.</p>';
-            }
-        }
 
-        function copyToClipboard() {
-            const directLink = document.querySelector('#output a')?.href;
-            if (directLink) {
+                // Automatically copy the direct link to clipboard
                 navigator.clipboard.writeText(directLink).then(() => {
-                    alert('Link copied to clipboard!');
+                    console.log('Link copied to clipboard!');
                 }).catch(err => {
                     console.error('Error copying link: ', err);
                 });
             } else {
-                alert('No link to copy. Please generate a link first.');
+                document.getElementById('output').innerHTML = '<p>Please enter a valid Google Drive file ID or shared link.</p>';
             }
         }
     </script>
